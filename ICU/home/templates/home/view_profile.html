@@ -4,14 +4,14 @@
     <head> 
         {% block head %}
         {%load static%}
-        <title> Homepage </title>
+        <title> Profile </title>
         <link rel="stylesheet" href="{%static 'home/style.css' %}">
         {% endblock head %}
     </head>
 
     <body>
         {% block body %}
-        <h1> Homepage </h1>
+        <h1> Profile </h1>
         {% include 'home/common/refOfLogout.html' %}
         {% endblock body %}
     </body>

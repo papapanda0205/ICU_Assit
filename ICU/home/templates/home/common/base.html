@@ -1,17 +1,22 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    {%load static%}
-    <title>Homepage</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Set meta Tag -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{%static 'home/style.css' %}">
-  </head>
+  {% block head %}
+  <title> Base </title>
+  {% endblock head %}
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
   <body>
+    {% if user.is_authenticated %}
     <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
       <div class="container-fluid">
         <a class="navbar-branch" href="#">
@@ -27,7 +32,7 @@
               <a class="nav-link active" href="{% url 'home:home' %}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'hopital:profile' %}">Profile</a>
+              <a class="nav-link" href="{% url 'home:view_profile' %}">Profile</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'aboutus:aboutus' %}">About us</a>
@@ -36,12 +41,11 @@
         </div>
       </div>
     </nav>
+    {% endif %}
 
-    <div class ="content"> 
-        {% block content%}
+    {% block body%}
 
-        {% endblock %}
-    </div>
+    {% endblock body %}
 
       
     <!-- Optional JavaScript -->

@@ -1,4 +1,18 @@
-{% extends 'home/base.html' %}
-{% block content%}
-<h1> Member </h1>
-{% endblock %}
+{% extends 'home/common/base.html' %}
+<!DOCTYPE html>
+<html>
+    <head> 
+        {% block head %}
+        {%load static%}
+        <title> About Us </title>
+        <link rel="stylesheet" href="{%static 'home/style.css' %}">
+        {% endblock head %}
+    </head>
+
+    <body>
+        {% block body %}
+        <h1> About Us </h1>
+        {% include 'home/common/refOfLogout.html' %}
+        {% endblock body %}
+    </body>
+</html>

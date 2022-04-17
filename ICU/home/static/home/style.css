@@ -10,8 +10,8 @@ html, body {
     background-color: rgba(210,208,210) !important;
   }
   .navbar li a {
-      color: white !important;
+      color: black !important;
   }
   .navbar li a:hover {
-      color: black !important;
+      color: gray !important;
   }
