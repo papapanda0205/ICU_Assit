@@ -4,22 +4,21 @@
     <head> 
         {% block head %}
         {%load static%}
-        <title> Profile </title>
+        <title> Edit Profile </title>
         <link rel="stylesheet" href="{%static 'home/style.css' %}">
         {% endblock head %}
     </head>
 
     <body>
         {% block body %}
-        <h1> Profile </h1>
         {% include 'home/common/refOfLogout.html' %}
         <div class = "container">
-            <p>Username: {{ user }}</p>
-            <p>Password: {{ user.password }} </p>
-            <p>Name of Hopital:  {{ user.first_name }}</p>
-            <p>Email: {{ user.email }} </p>
+            <form method = "post">
+                {% csrf_token %}
+                {{ uf.as_p }}
+                <button type = "submit">Submit</button>
+            </form>
         </div>
-        <a  href = "{% url 'home:edit_profile' %}"> Edit </a>
         {% endblock body %}
     </body>
 </html>
