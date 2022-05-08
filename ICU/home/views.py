@@ -1,29 +1,28 @@
+from re import template
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render, redirect
+from django.urls import reverse_lazy
+from django.views import generic
 
-from .form import registerForm, loginForm
+from .form import registerForm, loginForm, PasswordChangingForm, EditProfileForm
 from django.views import View
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, auth
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm, UserCreationForm
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib import messages
 
+class PasswordsChangeView(PasswordChangeView):
+    form_class = PasswordChangingForm
+    success_url = reverse_lazy('home:home')
 
-class registerUser(View):
-    def get(self, request):
-        rF = registerForm
-        return render(request, 'home/register.html', {'rF' : rF})
+class registerUser(generic.CreateView):
+    form_class = registerForm
+    template_name = 'home/register.html'
+    success_url = reverse_lazy('home:loginUser')
 
-    def post(self, request):
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
-
-        user = User.objects.create_user(username, email, password)
-        user.save()
-        return HttpResponse ('Register success')
 
 class loginUser(View):
     def get(self, request):
@@ -57,14 +56,12 @@ def profile(request):
     args = {'user' : request.user}
     return render (request, 'home/view_profile.html', args)
 
-def edit_profile(request):
-    if request.method == 'POST':
-        uf = UserChangeForm(request.POST, instance = request.user)
 
-    if uf.is_valid():
-        uf.save()   
-        return redirect('home:view_profile')
-    else:
-        uf = UserChangeForm (instance = request.user)
-        args = {'uf' : uf}
-        return render(request, 'home/edit_profile.html', args)
+class UserEditView(generic.UpdateView):
+    form_class = EditProfileForm
+    template_name = 'home/edit_profile.html'
+    success_url = reverse_lazy('home:profile')
+
+    def get_object(self):
+        return self.request.user
+

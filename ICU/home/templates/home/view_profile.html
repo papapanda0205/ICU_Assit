@@ -16,7 +16,6 @@
         <div class = "container">
             <p>Username: {{ user }}</p>
             <p>Password: {{ user.password }} </p>
-            <p>Name of Hopital:  {{ user.first_name }}</p>
             <p>Email: {{ user.email }} </p>
         </div>
         <a  href = "{% url 'home:edit_profile' %}"> Edit </a>

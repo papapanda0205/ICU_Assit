@@ -5,7 +5,7 @@
         
         {% block head %}
         {% load static %}
-        <title>Login</title>
+        <title>Register</title>
         <link rel = "stylesheet" href = "{% static 'home/LogAndRes.css' %}">
         {% endblock head %}
         
@@ -15,10 +15,15 @@
         <div class="container-fluid bg">
             <div class="row justify-content-center">
                 <div class="col-md-3 col-sm-6 col-xs-12 row-container">
+
+                    {%for message in messages%}
+                    <p class="alert alert-danger">{{message}}</p>
+                    {% endfor %}
+                    
                     <form action = "{% url 'home:registerUser' %}" method = "post">
                         <h1>Wellcome to ICU Assistance</h1>
                         {% csrf_token %}
-                        {{rF.as_p}}
+                        {{form.as_p}}
                         <button type="submit" class="btn btn-success btn-block my-3">Submit</button>
                         <a class="btn btn-success btn-block my-3" href = "{% url 'home:loginUser' %}"> Login </a>                  
                     </form>
