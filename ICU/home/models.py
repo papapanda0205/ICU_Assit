@@ -7,3 +7,8 @@ class picture(models.Model):
     title = models.CharField(max_length = 255)
     image = models.ImageField()
 
+    def __str__(self) -> str:
+        return super().__str__()
+
+    def save(self, *arg, **kwargs):
+        super().save(*arg, **kwargs)
